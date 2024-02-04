@@ -17,7 +17,7 @@ export default async function SetUpPage() {
   });
 
   if (server) {
-    return redirect(`/server/${server.id}`);
+    return redirect(`/servers/${server.id}`);
   }
 
   return (
