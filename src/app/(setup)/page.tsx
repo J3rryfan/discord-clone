@@ -1,5 +1,5 @@
 import InitialModal from "@/components/modals/inital-modal";
-import { initialProfile } from "@/lib/db";
+import { initialProfile } from "@/lib/inital-profile";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 
