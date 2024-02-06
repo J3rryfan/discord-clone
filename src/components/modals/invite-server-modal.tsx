@@ -1,12 +1,9 @@
 "use client";
 
-import FileUpload from "../file-upload";
-
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -16,12 +13,30 @@ import { useModal } from "@/hooks/use-modal-store";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { Copy } from "lucide-react";
+import { Check, Copy, RefreshCcw } from "lucide-react";
+import { useOrigin } from "@/hooks/use-origin";
+import { useState } from "react";
 
 export default function InviteServerModal() {
-  const { isOpen, onClose, type } = useModal();
+  const { isOpen, onClose, type, data } = useModal();
+  const origin = useOrigin();
 
   const isModalOpen = isOpen && type === "invite";
+  const { server } = data;
+
+  const [copied, setCopied] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const inviteUrl = `${origin}/invite/${server?.inviteCode}`;
+
+  const onCopy = () => {
+    navigator.clipboard.writeText(inviteUrl);
+    setCopied(true);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 1000);
+  };
 
   return (
     <div>
@@ -44,10 +59,14 @@ export default function InviteServerModal() {
             <div className=" flex items-center mt-2 gap-x-2">
               <Input
                 className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
-                value="invite-link"
+                value={inviteUrl}
               />
-              <Button size="icon">
-                <Copy className="w-4 h-4" />
+              <Button size="icon" onClick={onCopy}>
+                {copied ? (
+                  <Check className="w-4 h-4" />
+                ) : (
+                  <Copy className="w-4 h-4" />
+                )}
               </Button>
             </div>
 
@@ -57,6 +76,7 @@ export default function InviteServerModal() {
               className=" text-sm text-zinc-500 mt-4"
             >
               Generate new invite link
+              <RefreshCcw className="w-4 h-4 ml-2" />
             </Button>
           </div>
         </DialogContent>

@@ -43,7 +43,7 @@ export default function CreateServerModal() {
 
   const isModalOpen = isOpen && type === "createServer";
 
-  // Define youe form.
+  // Define youre form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
