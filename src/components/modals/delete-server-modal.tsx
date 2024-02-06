@@ -27,7 +27,7 @@ export default function DeleteServerModal() {
   const onClick = async () => {
     try {
       setIsLoading(true);
-      await axios.patch(`/api/servers/${server?.id}/leave`);
+      await axios.delete(`/api/servers/${server?.id}`);
       onClose();
       router.refresh();
       router.push("/");
