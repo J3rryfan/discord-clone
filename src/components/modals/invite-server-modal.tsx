@@ -16,9 +16,10 @@ import { Button } from "../ui/button";
 import { Check, Copy, RefreshCcw } from "lucide-react";
 import { useOrigin } from "@/hooks/use-origin";
 import { useState } from "react";
+import axios from "axios";
 
 export default function InviteServerModal() {
-  const { isOpen, onClose, type, data } = useModal();
+  const { isOpen, onClose, type, data, onOpen } = useModal();
   const origin = useOrigin();
 
   const isModalOpen = isOpen && type === "invite";
@@ -36,6 +37,22 @@ export default function InviteServerModal() {
     setTimeout(() => {
       setCopied(false);
     }, 1000);
+  };
+
+  const onNew = async () => {
+    try {
+      setIsLoading(true);
+
+      const response = await axios.patch(
+        `/api/servers/${server?.id}/invite-code`
+      );
+
+      onOpen("invite", { server: response.data });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -58,10 +75,11 @@ export default function InviteServerModal() {
 
             <div className=" flex items-center mt-2 gap-x-2">
               <Input
+                disabled={isLoading}
                 className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
                 value={inviteUrl}
               />
-              <Button size="icon" onClick={onCopy}>
+              <Button size="icon" onClick={onCopy} disabled={isLoading}>
                 {copied ? (
                   <Check className="w-4 h-4" />
                 ) : (
@@ -71,9 +89,11 @@ export default function InviteServerModal() {
             </div>
 
             <Button
+              disabled={isLoading}
               variant="link"
               size="sm"
               className=" text-sm text-zinc-500 mt-4"
+              onClick={onNew}
             >
               Generate new invite link
               <RefreshCcw className="w-4 h-4 ml-2" />
