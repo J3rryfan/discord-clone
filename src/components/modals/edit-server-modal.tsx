@@ -70,19 +70,7 @@ export default function EditServerModal() {
     console.log(values);
 
     try {
-      await axios.patch(`/api/servers/${server?.id}`, values); // axios way
-
-      // const response = await fetch("/api/servers", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(values),
-      // });
-
-      // if (!response.ok) {
-      //   throw new Error("Failed to create server");
-      // }
+      await axios.patch(`/api/servers/${server?.id}`, values); // axios way of updating the server
 
       form.reset();
       router.refresh();

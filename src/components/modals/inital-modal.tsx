@@ -14,7 +14,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 
 import {
@@ -63,20 +62,7 @@ export default function InitialModal() {
     console.log(values);
 
     try {
-      await axios.post("/api/servers", values); // axios way
-
-      // const response = await fetch("/api/servers", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(values),
-      // });
-
-      // if (!response.ok) {
-      //   throw new Error("Failed to create server");
-      // }
-
+      await axios.post("/api/servers", values);
       form.reset();
       router.refresh();
       window.location.reload();
