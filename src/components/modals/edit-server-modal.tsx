@@ -28,6 +28,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Server name is required" }),
@@ -37,11 +38,12 @@ const formSchema = z.object({
 });
 
 export default function EditServerModal() {
-  const { isOpen, onClose, type } = useModal();
+  const { isOpen, onClose, type, data } = useModal();
 
   const router = useRouter();
 
   const isModalOpen = isOpen && type === "editServer";
+  const { server } = data;
 
   // Define youre form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -52,6 +54,13 @@ export default function EditServerModal() {
     },
   });
 
+  useEffect(() => {
+    if (server) {
+      form.setValue("name", server.name);
+      form.setValue("image", server.imageUrl);
+    }
+  }, [server, form]);
+
   const isLoading = form.formState.isSubmitting;
 
   // 2. Define a submit handler.
@@ -61,7 +70,7 @@ export default function EditServerModal() {
     console.log(values);
 
     try {
-      await axios.post("/api/servers", values); // axios way
+      await axios.patch(`/api/servers/${server?.id}`, values); // axios way
 
       // const response = await fetch("/api/servers", {
       //   method: "POST",
@@ -144,7 +153,7 @@ export default function EditServerModal() {
               </div>
               <DialogFooter className="bg-grey-100 px-6 py-4">
                 <Button disabled={isLoading} variant="primary">
-                  Create
+                  Save
                 </Button>
               </DialogFooter>
             </form>
