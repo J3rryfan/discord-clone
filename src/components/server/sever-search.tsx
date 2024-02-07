@@ -1,6 +1,6 @@
 "use client";
 import { SearchIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Command,
@@ -29,6 +29,18 @@ interface ServerSearchProps {
 }
 export default function ServerSearch({ data }: ServerSearchProps) {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const down = (event: KeyboardEvent) => {
+      if (event.key === "k" && (event.metaKey || event.ctrlKey)) {
+        event.preventDefault();
+        setOpen((open) => !open);
+      }
+    };
+
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, []);
 
   return (
     <>
