@@ -4,7 +4,7 @@ import { ServerWithMembersWithProfiles } from "@/types";
 import { ChannelType, MemberRole } from "@prisma/client";
 import ActionTooltip from "@/components/action-tooltip";
 import { Button } from "../ui/button";
-import { Plus } from "lucide-react";
+import { Plus, Settings } from "lucide-react";
 import { useModal } from "@/hooks/use-modal-store";
 
 interface SeverSectionProps {
@@ -36,7 +36,17 @@ export default function ServerSection({
             onClick={() => onOpen("createChannel")}
           >
             <Plus className="h-4 w-4" />
-            <p>Why is the commit branch not working</p>
+          </Button>
+        </ActionTooltip>
+      )}
+
+      {role === MemberRole.ADMIN && sectionType === "members" && (
+        <ActionTooltip label="Create Channel" side="top">
+          <Button
+            className="text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
+            onClick={() => onOpen("members", { server: server })}
+          >
+            <Settings className="h-4 w-4" />
           </Button>
         </ActionTooltip>
       )}
