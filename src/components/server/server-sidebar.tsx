@@ -9,6 +9,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "../ui/separator";
 import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from "lucide-react";
 import ServerSection from "./server-section";
+import ServerChannel from "./server-channel";
 
 interface ServerSidebarProps {
   serverId: string;
@@ -136,6 +137,14 @@ export default async function ServerSidebar({ serverId }: ServerSidebarProps) {
                 role={role}
                 label="Text Channels"
               />
+              {textChannels.map((channel) => (
+                <ServerChannel
+                  key={channel.id}
+                  channel={channel}
+                  role={role}
+                  server={server}
+                />
+              ))}
             </div>
           )}
         </Separator>
