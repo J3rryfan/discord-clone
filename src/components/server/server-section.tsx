@@ -36,6 +36,7 @@ export default function ServerSection({
             onClick={() => onOpen("createChannel")}
           >
             <Plus className="h-4 w-4" />
+            <p>Why is the commit branch not working</p>
           </Button>
         </ActionTooltip>
       )}
