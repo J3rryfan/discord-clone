@@ -9,17 +9,15 @@ export default function MainLayout({
 }) {
   return (
     <>
-      <div className="h-full">
-        <div className=" hidden md:flex h-full w-[72px] z-30 flex-col fixed inset-y-0">
+      <div className="h-full flex flex-col">
+        <div className=" hidden md:flex h-full w-[72px] z-30 fixed inset-y-0">
           <NavigationSideBar />
         </div>
 
-        <main className="md:pl-[72px] h-full">
-          {children}
-          <div>
-            <NavigationBottomBar />
-          </div>
-        </main>
+        <div className="flex flex-col md:pl-[72px] flex-1">
+          <main className="flex-1 overflow-y-auto">{children}</main>
+          <NavigationBottomBar />
+        </div>
       </div>
     </>
   );

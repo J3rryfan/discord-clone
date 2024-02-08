@@ -12,7 +12,7 @@ export default async function NavigationBottomBar() {
   }
 
   return (
-    <div className=" flex items-centers justify-between dark:bg-[#1E1F22]">
+    <div className=" flex items-center justify-center space-x-4 dark:bg-[#1E1F22]">
       <Link href={"/"}>Servers</Link>
       <Link href={"/"}>Message</Link>
       <Link href={"/"}>
