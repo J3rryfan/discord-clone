@@ -13,22 +13,22 @@ export default async function NavigationBottomBar() {
   }
 
   return (
-    <div className=" flex items-center justify-center space-x-4 dark:bg-[#1E1F22] ">
+    <div className=" flex items-center justify-center space-x-4 dark:bg-[#1E1F22] p-2">
       <Link
         href={"/"}
         className="flex flex-col items-center text-sm hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition p-2 rounded-md "
       >
         <Home className="h-4 w-4 mb-1" />
-        Servers
+        <span className="hidden sm:block">Servers</span>
       </Link>
       <Link
         href={"/"}
         className="flex flex-col items-center text-sm hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition p-2 rounded-md"
       >
         <MessageCircleMore className="h-4 w-4 mb-1" />
-        Message
+        <span className="hidden sm:block">Message</span>
       </Link>
-      <Link href={"/"}>
+      <Link href={"/"} className="p-2 ">
         <NavigationBottomAction />
       </Link>
       <Link
@@ -36,9 +36,9 @@ export default async function NavigationBottomBar() {
         className="flex flex-col items-center text-sm hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition p-2 rounded-md"
       >
         <Bell className="h-4 w-4 mb-1" />
-        Notification
+        <span className="hidden sm:block">Notification</span>
       </Link>
-      <Link href={"/"}>
+      <Link href={"/"} className="p-2">
         <UserButton
           afterSignOutUrl="/"
           appearance={{
