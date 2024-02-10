@@ -31,7 +31,7 @@ export default function ServerChannel({
   const Icon = iconMap[channel.type];
 
   const handleChannelIdClick = () => {
-    router.push(`/servers/${params?.serverId}/channels/$${channel.id}`);
+    router.push(`/servers/${params.serverId}/channels/${channel.id}`);
   };
 
   const onAction = (event: React.MouseEvent, action: ModalType) => {
