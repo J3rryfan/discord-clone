@@ -18,26 +18,30 @@ export default async function ChannelIdPage({ params }: ChannelIdPageProps) {
     return redirectToSignIn();
   }
 
-  const channels = await db.channel.findUnique({
+  const channel = await db.channel.findUnique({
     where: {
       id: params.channelId,
     },
   });
 
-  const members = await db.member.findFirst({
+  const member = await db.member.findFirst({
     where: {
       serverId: params.serverId,
       profileId: profile.id,
     },
   });
 
-  if (!channels || !members) {
+  if (!channel || !member) {
     redirect("/");
   }
 
   return (
     <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
-      <ChatHeader />
+      <ChatHeader
+        name={channel.name}
+        serverId={channel.serverId}
+        type="channel"
+      />
     </div>
   );
 }
