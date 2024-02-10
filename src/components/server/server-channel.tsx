@@ -30,9 +30,13 @@ export default function ServerChannel({
 
   const Icon = iconMap[channel.type];
 
+  const handleChannelIdClick = () => {
+    router.push(`/servers/${params?.serverId}/channels/$${channel.id}`);
+  };
+
   return (
     <button
-      onClick={() => {}}
+      onClick={handleChannelIdClick}
       className={cn(
         "group px-2 py-2 rounded-md flex items-center gap-x-2 w-full hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition mb-1",
         params?.id === channel.id && "bg-zinc-700/20 dark:bg-zinc-700"
