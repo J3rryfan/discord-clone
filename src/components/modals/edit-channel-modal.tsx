@@ -57,24 +57,23 @@ export default function EditChannelModal() {
   const params = useParams();
 
   const isModalOpen = isOpen && type === "editChannel";
-  const { channelType } = data;
+  const { server, channel } = data;
 
   // Define youre form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      type: channelType || ChannelType.TEXT,
+      type: channel?.type || ChannelType.TEXT,
     },
   });
 
   useEffect(() => {
-    if (channelType) {
-      form.setValue("type", channelType);
-    } else {
-      form.setValue("type", ChannelType.TEXT);
+    if (channel) {
+      form.setValue("name", channel.name);
+      form.setValue("type", channel.type);
     }
-  }, [channelType, form]);
+  }, [form, channel]);
 
   const isLoading = form.formState.isSubmitting;
 
@@ -111,7 +110,7 @@ export default function EditChannelModal() {
         <DialogContent className=" bg-white text-black p-0 overflow-hidden">
           <DialogHeader className=" pt-8 px-6">
             <DialogTitle className=" text-2xl text-center font-bold">
-              Create Channel
+              Edit Channel
             </DialogTitle>
           </DialogHeader>
           <Form {...form}>
