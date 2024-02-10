@@ -1,3 +1,43 @@
-export default function ChannelIdPage() {
-  return <div>ChannelIdPage</div>;
+import { currentProfile } from "@/lib/current-profile";
+import { redirectToSignIn } from "@clerk/nextjs";
+import { db } from "@/lib/db";
+import { redirect } from "next/navigation";
+import ChatHeader from "@/components/chat/chat-header";
+
+interface ChannelIdPageProps {
+  params: {
+    serverId: string;
+    channelId: string;
+  };
+}
+
+export default async function ChannelIdPage({ params }: ChannelIdPageProps) {
+  const profile = await currentProfile();
+
+  if (!profile) {
+    return redirectToSignIn();
+  }
+
+  const channels = await db.channel.findUnique({
+    where: {
+      id: params.channelId,
+    },
+  });
+
+  const members = await db.member.findFirst({
+    where: {
+      serverId: params.serverId,
+      profileId: profile.id,
+    },
+  });
+
+  if (!channels || !members) {
+    redirect("/");
+  }
+
+  return (
+    <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
+      <ChatHeader />
+    </div>
+  );
 }
