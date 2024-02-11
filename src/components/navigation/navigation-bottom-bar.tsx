@@ -13,7 +13,7 @@ export default async function NavigationBottomBar() {
   }
 
   return (
-    <div className=" flex items-center justify-center space-x-4 dark:bg-[#1E1F22] p-2">
+    <div className=" flex items-center justify-center space-x-4 dark:bg-[#1E1F22] p-2 md:hidden">
       <Link
         href={"/"}
         className="flex flex-col items-center text-sm hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition p-2 rounded-md "
