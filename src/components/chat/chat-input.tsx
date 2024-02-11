@@ -2,6 +2,8 @@
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import qs from "query-string";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -43,7 +45,16 @@ export default function ChatInput({
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (value: z.infer<typeof formSchema>) => {
-    console.log(value);
+    try {
+      const url = qs.stringifyUrl({
+        url: apiUrl,
+        query: query,
+      });
+
+      await axios.post(url, value);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -69,6 +80,7 @@ export default function ChatInput({
                     placeholder={`Message ${
                       type === "conversation" ? name : "#" + name
                     }`}
+                    {...field}
                   />
                   <div className="absolute top-7 right-8">
                     <Smile />
