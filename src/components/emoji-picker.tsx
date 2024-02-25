@@ -1,7 +1,22 @@
 "use client";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/ui/popover";
+import { Smile } from "lucide-react";
 
-export default function EmojiPicker() {
+
+interface EmojiPickerProps {
+  onChange: (value: string) => void;
+}
+
+export default function EmojiPicker({onChange}: EmojiPickerProps) {
   return (
-    <div>EmojiPicker</div>
+    <Popover>
+      <PopoverTrigger>
+        <Smile className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition"/>
+      </PopoverTrigger>
+    </Popover>
   )
 }
