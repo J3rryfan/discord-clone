@@ -7,6 +7,7 @@ import { Member, Message, Profile } from "@prisma/client";
 import { ChatWelcome } from "@/components/chat/chat-welcome";
 import { useChatQuery } from "@/hooks/use-chat-query";
 import { Loader2, ServerCrash } from "lucide-react";
+import ChatItem from "@/components/chat/chat-item";
 
 
 type MessageWithMemberWithProfile = Message & {
@@ -93,7 +94,7 @@ export default function ChatMessages({
           <Fragment key={i}>
             {group.items.map((message: MessageWithMemberWithProfile) => (
               <div key={message.id}>
-                {message.content}
+                <ChatItem />
               </div>
 
             ))}
