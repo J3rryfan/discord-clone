@@ -58,7 +58,9 @@ export default function ChatItem({
                 {roleIconMap[member.role]}
               </ActionTooltip>
             </div>
-
+            <span className="text-xs text-zinc-500 dark:text-zinc-400">
+              {timestamp}
+            </span>
           </div>
 
         </div>
