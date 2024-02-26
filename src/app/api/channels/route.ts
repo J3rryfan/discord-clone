@@ -1,9 +1,12 @@
+import { NextResponse } from "next/server";
+import { MemberRole } from "@prisma/client";
+
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
-import { MemberRole } from "@prisma/client";
-import { NextResponse } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST(
+  req: Request
+) {
   try {
     const profile = await currentProfile();
     const { name, type } = await req.json();
@@ -16,7 +19,7 @@ export async function POST(req: Request) {
     }
 
     if (!serverId) {
-      return new NextResponse("Server ID is missing", { status: 400 });
+      return new NextResponse("Server ID missing", { status: 400 });
     }
 
     if (name === "general") {
@@ -30,25 +33,25 @@ export async function POST(req: Request) {
           some: {
             profileId: profile.id,
             role: {
-              in: [MemberRole.ADMIN, MemberRole.MODERATOR],
-            },
-          },
-        },
+              in: [MemberRole.ADMIN, MemberRole.MODERATOR]
+            }
+          }
+        }
       },
       data: {
         channels: {
           create: {
             profileId: profile.id,
-            name: name,
-            type: type,
-          },
-        },
-      },
+            name,
+            type,
+          }
+        }
+      }
     });
 
     return NextResponse.json(server);
   } catch (error) {
-    console.log("[SERVER_CHANNEL_ERROR]" + error);
+    console.log("CHANNELS_POST", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

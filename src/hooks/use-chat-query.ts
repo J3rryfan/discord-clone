@@ -3,14 +3,12 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { useSocket } from "@/components/providers/socket-provider";
 
-
 interface ChatQueryProps {
   queryKey: string;
   apiUrl: string;
   paramKey: "channelId" | "conversationId";
   paramValue: string;
-}
-
+};
 
 export function useChatQuery({
   queryKey,
@@ -30,6 +28,7 @@ export function useChatQuery({
       }
     }, { skipNull: true });
 
+
     const res = await fetch(url);
     return res.json();
   };
@@ -45,8 +44,9 @@ export function useChatQuery({
     queryFn: fetchMessages,
     getNextPageParam: (lastPage) => lastPage?.nextCursor,
     refetchInterval: isConnected ? false : 1000,
-    initialPageParam: undefined, // Add this line
+    initialPageParam: undefined
   });
 
   return { data, fetchNextPage, hasNextPage, isFetchingNextPage, status}
 }
+
