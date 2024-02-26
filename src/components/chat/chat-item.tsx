@@ -1,7 +1,46 @@
+"use client";
+
+import { Member, Profile } from "@prisma/client";
+import UserAvatar from "@/components/user-avatar";
+
+interface ChatItemProps {
+  id: string,
+  content: string;
+  member: Member & {
+    profile: Profile;
+  };
+  timestamp: string;
+  fileUrl: string | null;
+  deleted: boolean;
+  currentMember: Member;
+  isUpdated: boolean;
+  socketUrl: string;
+  socketQuery: Record<string, string>;
+
+}
 
 
-export default function ChatItem() {
+export default function ChatItem({
+  id,
+  content,
+  member,
+  timestamp,
+  fileUrl,
+  deleted,
+  currentMember,
+  isUpdated,
+  socketUrl,
+  socketQuery,
+} : ChatItemProps) {
   return (
-    <div>ChatItem</div>
+    <div className=" relative group flex items-center hover:bg-black/5 p-4 transition w-full">
+
+      <div className=" group flex gap-x-2 items-start w-full">
+        <div className=" cursor-pointer hover:drop-shadow-md transition">
+          <UserAvatar src={member.profile.imageUrl}/>
+        </div>
+
+      </div>
+    </div>
   )
 }
