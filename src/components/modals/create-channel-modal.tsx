@@ -174,7 +174,7 @@ export default function CreateChannelModal() {
               </div>
               <DialogFooter className="bg-grey-100 px-6 py-4">
                 <Button disabled={isLoading} variant="primary">
-                  Create Channel
+                  Create
                 </Button>
               </DialogFooter>
             </form>
